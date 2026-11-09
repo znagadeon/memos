@@ -1,0 +1,26 @@
+app = "znagadeon-memos"
+primary_region = "nrt"
+
+[build]
+  # https://hub.docker.com/r/neosmemo/memos/tags 에서 버전 확인 후 올리기
+  image = "neosmemo/memos:26.11.0"
+
+[env]
+  MEMOS_PORT = "5230"
+  MEMOS_DATA = "/var/opt/memos"
+  MEMOS_INSTANCE_URL = "https://znagadeon-memos.fly.dev"
+
+[[mounts]]
+  source = "memos_data"
+  destination = "/var/opt/memos"
+
+[http_service]
+  internal_port = 5230
+  force_https = true
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
